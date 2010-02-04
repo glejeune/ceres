@@ -14,10 +14,10 @@ A tiny Planet powered by Capcode
 
 == Install
 
-	git clone git://github.com/glejeune/ceres.git
-	cd ceres
-	ruby ceres
-	open http://localhost:3001
+  git clone git://github.com/glejeune/ceres.git
+  cd ceres
+  ruby ceres
+  open http://localhost:3001
 
 == Licence
 
