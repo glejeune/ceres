@@ -1,6 +1,6 @@
 = Cedes 
 
-A tiny Planet powered by Capcode or a [dwarf planet]{http://en.wikipedia.org/wiki/Ceres_(dwarf_planet)}
+A tiny Planet powered by Capcode or a {dwarf planet}[http://en.wikipedia.org/wiki/Ceres_(dwarf_planet)]
 
 == Requirements
 
