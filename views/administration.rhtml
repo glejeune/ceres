@@ -1,0 +1,19 @@
+<div id="feedcontent">
+	<h2>Feeds</h2>
+	
+	<table>
+	<% @feeds.each do |feed| %>
+		<tr>
+			<td><a href="<%= feed.url %>"><%= feed.title %></a></td>
+			<td>
+				<% if feed.active.nil? %>
+				<a href="<%= URL(Capcode::Activate, feed.id) %>">Activate</a>
+				<% else %>
+				<a href="<%= URL(Capcode::Deactivate, feed.id) %>">Deactivate</a>
+				<% end %>
+			</td>
+			<td><a href="">Delete</a></td>
+		</tr>
+	<% end %>
+	</table>
+</div>

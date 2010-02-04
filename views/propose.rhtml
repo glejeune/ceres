@@ -1,0 +1,52 @@
+<div id="feedcontent">
+<% if @error %>
+<b>We are sorry but something was wrong when registering your proposal... Please try again. If it does not work, contact one of out moderator.</b>
+<% end %>
+
+<% if @alternates.nil? %>
+
+"Please, could you add my website on this planet ?<br />
+
+- Yes ! Give me your Website URL and I'll ask the moderator :
+
+<% else %>
+
+OK, here is the deal : <br />
+
+You give me this URL : <b><%= @alternates[:url] %></b> and i get those informations :
+
+<form method="post" action="<%= URL(Capcode::SubmitFeed) %>">
+	Website title : <input type="text" size="30" name="title" value="<%= @alternates[:title] %>"><br />
+	
+	
+	<% if @alternates[:links].size == 0 %>
+	Unfortunatly, i can find any avalaible feed for this site. Please give me the feed URL : <input type="text" name="feed", value="">
+	<% elsif @alternates[:links].size == 1 %>
+	Available feed : <%= @alternates[:links][0][:title] %>
+	<input type="hidden" name="feed" value="<%= @alternates[:links][0][:href] %>">
+	<% elsif @alternates[:links].size > 1 %>
+	Available feeds : 
+	<select name="feed">
+		<% @alternates[:links].each do |a| %>
+		<option value="<%= a[:href]%>"><%= a[:title] %></option>
+		<% end %>
+	</select>
+	<% end %>
+	
+	<br />
+	<input type="hidden" name="url" value="<%= @alternates[:url] %>">
+	<input type="hidden" name="host" value="<%= @alternates[:host] %>">
+	It could be cool to give us a short description. This is not an obligation, feel free to do it.<br />
+	<textarea cols="60" rows="10" name="description"></textarea><br />
+	
+	The when it is good for you, click here -> <input type="submit"> and wait for a response of one of our moderator...
+</form>
+
+<p></p>You can also change your mind and give me another URL :
+
+<% end %>
+
+<form method="POST">
+	<input type="text" size="30" name="url"><input type="submit" value="Here it is!">
+</form>
+</div>

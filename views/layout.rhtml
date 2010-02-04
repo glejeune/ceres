@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="<%= URL(Capcode::Style) %>" rel="stylesheet" media="screen" type="text/css">
+		<title>Ceres | Welcome on my planet !</title>
+	</head>
+		<body>
+			<div id="main">
+				<div id="toolbar">
+					<% if @user.nil? %>
+					<a href="<%= URL(Capcode::Index) %>">Home</a> <a href="<%= URL(Capcode::ProposeFeed) %>">Propose</a> <a href="<%= URL(Capcode::Login) %>">Login</a>
+					<% else %>
+					<span>[Hello <%= @user.realname %>]</span> <a href="<%= URL(Capcode::Index) %>">Home</a> <a href="<%= URL(Capcode::ProposeFeed) %>">Propose</a> <a href="<%= URL(Capcode::Administration) %>">Administration</a> <a href="<%= URL(Capcode::Logout) %>">Logout</a>
+					<% end %>
+				</div>
+				<div id="header">
+					<h1>Ceres</h1>
+				</div>
+				<div id="content">
+			 		<%= yield %>
+				</div>
+				<div id="footer">
+					<p><span id="copyright">Powered by <a href="http://github.com/glejeune/ceres">Ceres</a>, &copy;2010, Grégoire Lejeune</span></p>
+					<p><span id="copyright">Header image This is in the <b>public domain</b> because it was created by <a href="http://www.nasa.gov/">NASA</a>.<br />NASA copyright policy states that "<i>NASA material is not protected by copyright unless noted</i>". (See <a href="http://www.jsc.nasa.gov/policies.html#Guidelines">NASA copyright policy page</a>)</span></p>
+				</div>
+			</div>
+		</body>
+</html>

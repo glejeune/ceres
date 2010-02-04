@@ -1,0 +1,96 @@
+#footer a {
+	color:#FFFFFF;
+}
+
+#copyright {
+	font-size:10px;
+}
+
+body {
+	background-color:#000000;
+}
+
+#feedcontent {
+	padding:0px 10px 10px 10px;
+}
+
+#feedcontent h1 {
+	color:#000;
+	background-color:#fff;
+	padding:0;
+	margin:0;
+}
+
+#footer {
+	color:#FFFFFF;
+	background-color:#000000;
+	padding-bottom:5px;
+	padding-top:0px;
+	padding-left:20px;
+}
+
+#content {
+	background-color:#FFFFFF;
+	border-top:15px solid #000000;
+	border-bottom:15px solid #000000;
+}
+
+#content h1 {
+	width: 100%;
+	color: #FFF;
+	background-color:#000;
+	margin-top:0px;
+	padding: 10px;
+}
+
+#content a {
+	text-decoration: none;
+}
+
+#toolbar a {
+	color:#FFFFFF;
+	text-decoration:none;
+	padding-right:20px;
+	font-weight:bold;
+}
+
+#toolbar span {
+	color:#FFFFFF;
+	padding-right:20px;
+}
+
+#header h1 {
+	margin-top:0px;
+	padding-top:35px;
+	padding-left:20px;
+	color:#000;
+	font-weight:bolder;
+}
+
+#header {
+	background-image:url(/static/images/ceres.jpg);
+	width:1024px;
+	height:104px;
+	color:#FFFFFF;
+	margin-top:0px;
+	padding-top:0px;
+}
+
+#toolbar {
+	color: #ffffff;
+	background-color:#000000;
+	margin-top:0px;
+	margin-bottom:0px;
+	padding-left:20px;
+	padding-top:5px;
+	padding-bottom:15px;
+}
+
+#main {
+	width:1024px;
+	font-family:Helvetica;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+}
+
