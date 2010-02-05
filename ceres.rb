@@ -2,8 +2,12 @@ require 'rubygems'
 require 'capcode'
 require 'capcode/base/dm'
 
+CERES_PATH = File.dirname(File.expand_path(__FILE__))
+puts CERES_PATH
+
 # Require Ceres libs
 require './lib/feed.rb'
+require './lib/core_ext.rb'
 
 require 'pp'
 
@@ -37,6 +41,7 @@ class Post < Capcode::Base
   property :date, Date
   property :url, String
   property :post_id, String
+  property :author, String
   
   belongs_to :feed
   
@@ -53,11 +58,15 @@ class Post < Capcode::Base
     page = opts[:page]
     page = 1 if page < 1
     page = number_of_pages if page > number_of_pages
+    
+    previous_page = (page > 1)?(page - 1):nil
+    next_page = (page < number_of_pages)?(page + 1):nil
+    
     page -= 1
     
     start = page*opts[:per_page]
     
-    all[start, opts[:per_page]]
+    [all[start, opts[:per_page]], previous_page, next_page, number_of_pages]
   end
 end
 
@@ -110,9 +119,10 @@ module Capcode
     end
   end
   
-  class Index < Route '/'
-    def get
-      @posts = Post.paginate( )
+  class Index < Route '/', '/page/(.*)'
+    def get( page = 1 )
+      @page = page.to_i
+      @posts, @previous_page, @next_page, @number_of_pages = Post.paginate( :page => @page )
       render :erb => :index
     end
   end
@@ -177,11 +187,25 @@ module Capcode
     end
   end
   
+  class Contributors < Route '/contributors'
+    def get
+      @contributors = Feed.all( :active.not => "" )
+      render :erb => :contributors
+    end
+  end
+  
+  class Atom < Route '/atom'
+    def get
+      @posts, @previous_page, @next_page, @number_of_pages = Post.paginate( )
+      render :erb => "atom.rxml", :content_type => "application/atom+xml", :layout => :none
+    end
+  end
+  
   class Administration < Route '/admin'
     def get
       @feeds = Feed.all
       @users = Moderator.all
-
+      @colors = ["#fff", "#AAAAAA"]
       render :erb => :administration
     end
   end

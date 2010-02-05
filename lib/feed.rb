@@ -40,12 +40,6 @@ module Ceres
       return feed
     end
     
-    class Parser
-      def initialize( )
-        @feed = FeedNormalizer::FeedNormalizer.parse open(url)
-      end
-    end
-
     class Reader
       
       def initialize( interval = 60*60*6 )

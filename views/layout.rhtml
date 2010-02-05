@@ -3,15 +3,16 @@
 	<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link href="<%= URL(Capcode::Style) %>" rel="stylesheet" media="screen" type="text/css">
+		<link rel="alternate" type="application/atom+xml" href="<%= URL(Capcode::Atom) %>" />
 		<title>Ceres | Welcome on my planet !</title>
 	</head>
 		<body>
 			<div id="main">
 				<div id="toolbar">
 					<% if @user.nil? %>
-					<a href="<%= URL(Capcode::Index) %>">Home</a> <a href="<%= URL(Capcode::ProposeFeed) %>">Propose</a> <a href="<%= URL(Capcode::Login) %>">Login</a>
+					<a href="<%= URL(Capcode::Index) %>">Home</a> <a href="<%= URL(Capcode::Contributors) %>">Contributors</a> <a href="<%= URL(Capcode::ProposeFeed) %>">Propose</a> <a href="<%= URL(Capcode::Login) %>">Login</a>
 					<% else %>
-					<span>[Hello <%= @user.realname %>]</span> <a href="<%= URL(Capcode::Index) %>">Home</a> <a href="<%= URL(Capcode::ProposeFeed) %>">Propose</a> <a href="<%= URL(Capcode::Administration) %>">Administration</a> <a href="<%= URL(Capcode::Logout) %>">Logout</a>
+					<span>[Hello <%= @user.realname %>]</span> <a href="<%= URL(Capcode::Index) %>">Home</a> <a href="<%= URL(Capcode::Contributors) %>">Contributors</a> <a href="<%= URL(Capcode::ProposeFeed) %>">Propose</a> <a href="<%= URL(Capcode::Administration) %>">Administration</a> <a href="<%= URL(Capcode::Logout) %>">Logout</a>
 					<% end %>
 				</div>
 				<div id="header">
@@ -23,6 +24,7 @@
 				<div id="footer">
 					<p><span id="copyright">Powered by <a href="http://github.com/glejeune/ceres">Ceres</a>, &copy;2010, Grégoire Lejeune</span></p>
 					<p><span id="copyright">Header image This is in the <b>public domain</b> because it was created by <a href="http://www.nasa.gov/">NASA</a>.<br />NASA copyright policy states that "<i>NASA material is not protected by copyright unless noted</i>". (See <a href="http://www.jsc.nasa.gov/policies.html#Guidelines">NASA copyright policy page</a>)</span></p>
+					<p><span id="copyright">Thumbnails powered by <a href="http://www.thumbshots.com" target="_blank" title="Thumbnails Previews by Thumbshots">Thumbshots</a></span></p>
 				</div>
 			</div>
 		</body>

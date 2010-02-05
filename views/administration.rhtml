@@ -1,18 +1,20 @@
 <div id="feedcontent">
 	<h2>Feeds</h2>
 	
-	<table>
+	<p>Here, you can activate/deactivate a feed source. If you deactivate it, his posts will be always available but it will not be listed in the <a href="<%= URL(Capcode::Contributors) %>">contributor's list</a>. You can also delete one or more sources. If you delete a feed source, all it's posts will be deleted !</p>
+	
+	<table width="100%">
 	<% @feeds.each do |feed| %>
-		<tr>
+		<tr bgcolor="<%= @colors.rotate %>">
 			<td><a href="<%= feed.url %>"><%= feed.title %></a></td>
-			<td>
+			<td align="center">
 				<% if feed.active.nil? %>
-				<a href="<%= URL(Capcode::Activate, feed.id) %>">Activate</a>
+				[<a href="<%= URL(Capcode::Activate, feed.id) %>">Activate</a>]
 				<% else %>
-				<a href="<%= URL(Capcode::Deactivate, feed.id) %>">Deactivate</a>
+				[<a href="<%= URL(Capcode::Deactivate, feed.id) %>">Deactivate</a>]
 				<% end %>
 			</td>
-			<td><a href="">Delete</a></td>
+			<td align="center">[<a href="">Delete</a>]</td>
 		</tr>
 	<% end %>
 	</table>

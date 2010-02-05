@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ceres</title>
+  <link rel="alternate" type="text/html" href="<%= URL(Capcode::Index) %>" />
+  <link rel="self" type="application/atom+xml" href="<%= URL(Capcode::Atom) %>" />
+  <id><%= URL(Capcode::Atom) %></id>
+  <updated><%= Time.now() %></updated>
+  <subtitle>Welcome to my planet</subtitle>
+
+  <% @posts.each do |post| %>
+  <entry>
+    <title><%= post.title %></title>
+    <link rel='alternate' type='text/html' href='<%= post.url %>' />
+    <id><%= post.post_id %></id>
+    <updated><%= post.date %></updated>
+
+    <author>
+      <name><%= post.author %></name>
+    </author>
+
+    <content type="html"><%= post.content %></content>
+  </entry>
+  <% end %>
+</feed>
