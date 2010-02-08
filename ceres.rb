@@ -2,14 +2,9 @@ require 'rubygems'
 require 'capcode'
 require 'capcode/base/dm'
 
-CERES_PATH = File.dirname(File.expand_path(__FILE__))
-puts CERES_PATH
-
 # Require Ceres libs
 require './lib/feed.rb'
 require './lib/core_ext.rb'
-
-require 'pp'
 
 Ceres::Feeds::Reader.new(20).start
 
@@ -129,7 +124,7 @@ module Capcode
   
   class Style < Route '/style'
     def get
-      render :static => "style.css"
+      render :static => "style.css", :exact_path => false
     end
   end
   
@@ -205,7 +200,7 @@ module Capcode
     def get
       @feeds = Feed.all
       @users = Moderator.all
-      @colors = ["#fff", "#AAAAAA"]
+      @colors = ["#EEEEEE", "#AAAAAA"]
       render :erb => :administration
     end
   end
@@ -230,10 +225,3 @@ module Capcode
   
 end
 
-Capcode.run( :port => 3001, :host => "localhost", :db_config => "ceres.yml" ) do 
-  if Moderator.all.count <= 0
-    m = Moderator.new( :login => "admin", :realname => "Admin")
-    m.password = "admin"
-    m.save
-  end
-end
