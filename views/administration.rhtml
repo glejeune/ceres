@@ -1,7 +1,7 @@
 <div id="feedcontent">
-	<h2>Feeds</h2>
+	<h2>Contributors</h2>
 	
-	<p>Here, you can activate/deactivate a feed source. If you deactivate it, his posts will be always available but it will not be listed in the <a href="<%= URL(Capcode::Contributors) %>">contributor's list</a>. You can also delete one or more sources. If you delete a feed source, all it's posts will be deleted !</p>
+	<p>Here, you can activate/deactivate a feed source. If you deactivate it, his posts will be still availables but no new post will be added and it will not be listed in the <a href="<%= URL(Capcode::Contributors) %>">contributors' list</a>. You can also delete one or more sources. If you delete a feed source, all it's posts will be deleted !</p>
 	
 	<table width="100%">
 	<% @feeds.each do |feed| %>
@@ -9,13 +9,36 @@
 			<td><a href="<%= feed.url %>"><%= feed.title %></a></td>
 			<td align="center">
 				<% if feed.active.nil? %>
-				[<a href="<%= URL(Capcode::Activate, feed.id) %>">Activate</a>]
+				[<a href="<%= URL(Capcode::ActivateFeed, feed.id) %>">Activate</a>]
 				<% else %>
-				[<a href="<%= URL(Capcode::Deactivate, feed.id) %>">Deactivate</a>]
+				[<a href="<%= URL(Capcode::DeactivateFeed, feed.id) %>">Deactivate</a>]
 				<% end %>
 			</td>
-			<td align="center">[<a href="">Delete</a>]</td>
+			<td align="center">[<a href="<%= URL(Capcode::DeleteFeed, feed.id) %>">Delete</a>]</td>
 		</tr>
 	<% end %>
+	</table>
+	
+	<h2>Moderators</h2>
+	
+	<p>Here, hou can create or remove a moderator.</p>
+	
+	<table width="100%">
+	<% @users.each do |user| %>
+		<tr bgcolor="<%= @colors.rotate %>">
+			<td><%= user.realname %> <i>aka</i> <%= user.login %></td><td align="center">[<a href="<%= URL(Capcode::DeleteModerator, user.id) %>">Delete</a>]</td>
+		</tr>
+	<% end %>
+	</table>
+	
+	<p>Add a new moderator :</p>
+	
+	<table>
+		<form method="POST" action="<%= URL(Capcode::AddModerator) %>">
+		<tr><td>Login :</td><td><input type="text" name="login"></td></tr>
+		<tr><td>Real name : </td><td><input type="text" name="realname"></td></tr>
+		<tr><td>Password : </td><td><input type="password" name="password"></td></tr>
+		<tr><td>&nbsp;</td><td><input type="submit" value="Add"></td></tr>
+		</form>
 	</table>
 </div>

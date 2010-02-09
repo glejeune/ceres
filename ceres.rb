@@ -3,8 +3,8 @@ require 'capcode'
 require 'capcode/base/dm'
 
 # Require Ceres libs
-require './lib/feed.rb'
-require './lib/core_ext.rb'
+require 'lib/feed'
+require 'lib/core_ext'
 
 Ceres::Feeds::Reader.new(20).start
 
@@ -95,7 +95,14 @@ module Capcode
   set :static, "static"
   
   before_filter :check_login
-  before_filter :user_logged, :only => [:Administration]
+  before_filter :user_logged, :only => [
+    :Administration, 
+    :ActivateFeed, 
+    :DeactivateFeed, 
+    :DeleteFeed, 
+    :AddModerator, 
+    :DeleteModerator
+  ]
   
   def check_login
     if session[:user]
@@ -128,7 +135,7 @@ module Capcode
     end
   end
   
-  class ProposeFeed < Route '/propose'
+  class ProposeFeed < Route '/feed/propose'
     def get
       @alternates = nil
       render :erb => :propose
@@ -140,7 +147,7 @@ module Capcode
     end
   end
   
-  class SubmitFeed < Route '/propose/submit'
+  class AcceptFeed < Route '/feed/accept'
     def get
       redirect ProposeFeed
     end
@@ -205,7 +212,7 @@ module Capcode
     end
   end
   
-  class Activate < Route '/activate/(.*)'
+  class ActivateFeed < Route '/feed/activate/(.*)'
     def get( id )
       feed = Feed.get(id.to_i)
       feed.active = "yes"
@@ -214,7 +221,7 @@ module Capcode
     end
   end
   
-  class Deactivate < Route '/deactivate/(.*)'
+  class DeactivateFeed < Route '/feed/deactivate/(.*)'
     def get( id )
       feed = Feed.get(id.to_i)
       feed.active = nil
@@ -223,5 +230,43 @@ module Capcode
     end
   end
   
+  class DeleteFeed < Route '/delete/(.*)'
+    def get( id )
+      feed = Feed.get(id.to_i)
+      feed.posts.each do |post|
+        post.destroy!
+      end
+      feed.destroy!
+      redirect Administration
+    end
+  end
+
+  class AddModerator < Route '/add/moderator'
+    def get
+      redirect Administration
+    end
+    def post
+      m = Moderator.new( :login => params['login'], :realname => params['realname'])
+      m.password = params['password']
+      m.save
+      redirect Administration
+    end
+  end
+  
+  class DeleteModerator < Route '/delete/moderator/(.*)'
+    def get( id )
+      Moderator.get( id.to_i ).destroy!
+      redirect Administration
+    end
+  end
 end
 
+if $0 == __FILE__
+  Capcode.run( :db_config => "ceres.yml" ) do 
+    if Moderator.all.count <= 0
+      m = Moderator.new( :login => "admin", :realname => "Admin")
+      m.password = "admin"
+      m.save
+    end
+  end
+end
