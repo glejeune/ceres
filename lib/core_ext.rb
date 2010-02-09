@@ -1,6 +1,5 @@
 class Array
   def rotate
-    self.push(r = self.shift)
-    return r
+    shift.tap {|e| push e }
   end
 end
