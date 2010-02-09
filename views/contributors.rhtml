@@ -2,7 +2,7 @@
 	<% @contributors.each do |contributor| %>
 	<table>
 		<tr><td><a href="<%= contributor.url %>"><img src="http://open.thumbshots.org/image.aspx?url=<%= contributor.url %>" border="1" /></a></td>
-		<td><b><%= contributor.title %></b>
+		<td><b><%= contributor.title %></b> (<%= contributor.posts.count %> posts)
 		<p><%= contributor.description %></p></td></tr>
 	</table>
 	<% end %>

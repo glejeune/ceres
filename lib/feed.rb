@@ -58,12 +58,16 @@ module Ceres
             content.items.each do |item|            
               # Verify if the items already existe or not
               post = Post.all( :post_id => item.id )
+              
               if post.nil? or post.size == 0
                 new_posts = true
+
+                require 'pp'
+                pp item
                 
                 Post.new( 
                   :title => item.title,
-                  :content => item.content,
+                  :content => ((item.content.nil? or item.content.size == 0)?(item.description):(item.content)),
                   :date => item.last_updated || Time.now(),
                   :url => item.urls[0],
                   :post_id => item.id,

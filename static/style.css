@@ -19,13 +19,6 @@ pre {
 	padding:0px 10px 10px 10px;
 }
 
-#feedcontent h1 {
-	color:#000;
-	background-color:#fff;
-	padding:0;
-	margin:0;
-}
-
 #paginate {
 	text-align: center;
 	border-top: 2px dotted black;
@@ -34,7 +27,7 @@ pre {
 	color: #000;
 }
 
-#paginate a {
+#paginate > a {
 	text-decoration: none;
 	color: #000;
 }
@@ -61,45 +54,70 @@ td {
 	margin:0;
 }
 
-#content h1 {
+#content > h1 {
 	width: 100%;
 	color: #FFF;
 	background-color:#000;
 	margin-top:0px;
+	margin-bottom:0px;
 	padding-left: 0px;
 	padding-right: 0px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
 
-#content h1 a {
+#content > h1 > a {
 	text-decoration: none;
 	color: #fff;
 	padding-left: 10px;
 }
 
-#content a {
+#content > h3 {
+	width: 100%;
+	color: #777777;
+	background-color:#fff;
+	font-size: 16px;
+	margin-top:0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 5px;
+	text-align: right;
+}
+
+#content > h3 > a {
+	text-decoration: none;
+	color: #777777;
+	padding-right: 10px;
+}
+
+#content > a {
 	text-decoration: none;
 }
 
-#toolbar a {
+#toolbar > a {
 	color:#FFFFFF;
 	text-decoration:none;
 	padding-right:20px;
 	font-weight:bold;
 }
 
-#toolbar span {
+#toolbar > span {
 	color:#FFFFFF;
 	padding-right:20px;
 }
 
-#header h1 {
+#header > h1 {
 	margin-top:0px;
 	padding-top:35px;
 	padding-left:20px;
 	color:#000;
 	font-weight:bolder;
+}
+
+#header > h1 > a {
+	color: #000;
+	text-decoration: none;
 }
 
 #header {

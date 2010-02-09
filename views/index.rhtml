@@ -1,5 +1,6 @@
 <% @posts.each do |post| %>
 	<h1><a href="<%= post.url %>"><%= post.title %></a></h1>
+	<h3>From <a href="<%= post.feed.url %>"><%= post.feed.title %></a></h3>
 	<div id="feedcontent">
 		<%= post.content %>
 	</div>
