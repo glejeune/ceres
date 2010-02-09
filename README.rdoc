@@ -19,7 +19,7 @@ A tiny Planet powered by Capcode or a {dwarf planet}[http://en.wikipedia.org/wik
   ruby ceres.rb
   open http://localhost:3001
 
-== Licence
+== License
 
 Copyright (c) 2010 glejeune
 
