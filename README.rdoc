@@ -6,7 +6,7 @@ A tiny Planet powered by Capcode or a {dwarf planet}[http://en.wikipedia.org/wik
 
 * Capcode 
 * capcode-render-static
-* capcode-render-markaby 
+* capcode-render-erb 
 * capcode-base-datamapper
 * feed-normalizer
 * eventmachine
