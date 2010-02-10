@@ -1,6 +1,6 @@
 = Ceres 
 
-A tiny Planet powered by Capcode or a {dwarf planet}[http://en.wikipedia.org/wiki/Ceres_(dwarf_planet)]
+A tiny Planet powered by Capcode (or a {dwarf planet}[http://en.wikipedia.org/wiki/Ceres_(dwarf_planet)])
 
 == Requirements
 
@@ -14,10 +14,10 @@ A tiny Planet powered by Capcode or a {dwarf planet}[http://en.wikipedia.org/wik
 
 == Install
 
-  git clone git://github.com/glejeune/ceres.git
+	git clone git://github.com/glejeune/ceres.git
   cd ceres
   ruby ceres.rb
-  open http://localhost:3001
+  open http://localhost:3000
 
 == License
 

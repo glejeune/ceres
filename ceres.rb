@@ -43,25 +43,27 @@ class Post < Capcode::Base
   def self.paginate( opts = {} )
     opts = {:page => 1, :per_page => 10, :order => :date.desc}.merge(opts)    
     
+    # Get order
     order = opts.delete(:order) || []
-    
+    # Get all posts
     all = Post.all( :order => order )
     
+    # Set number or pages
     number_of_pages = all.count / opts[:per_page]
     number_of_pages = ((all.count - (number_of_pages * opts[:per_page])) > 0)?(number_of_pages+1):number_of_pages
     
+    # Set page number
     page = opts[:page]
     page = 1 if page < 1
     page = number_of_pages if page > number_of_pages
     
+    # Set previous and next page
     previous_page = (page > 1)?(page - 1):nil
     next_page = (page < number_of_pages)?(page + 1):nil
     
-    page -= 1
+    start = (page-1)*opts[:per_page]
     
-    start = page*opts[:per_page]
-    
-    [all[start, opts[:per_page]], previous_page, next_page, number_of_pages]
+    [all[start, opts[:per_page]], page, previous_page, next_page, number_of_pages]
   end
 end
 
@@ -123,8 +125,7 @@ module Capcode
   
   class Index < Route '/', '/page/(.*)'
     def get( page = 1 )
-      @page = page.to_i
-      @posts, @previous_page, @next_page, @number_of_pages = Post.paginate( :page => @page )
+      @posts, @page, @previous_page, @next_page, @number_of_pages = Post.paginate( :page => page.to_i )
       render :erb => :index
     end
   end
@@ -142,7 +143,11 @@ module Capcode
     end
     
     def post
-      @alternates = Ceres::Feeds.fromURL( params['url'] )
+      if params['url'].nil? or params['url'].size == 0
+        @alternates = nil
+      else
+        @alternates = Ceres::Feeds.fromURL( params['url'] )
+      end
       render :erb => :propose
     end
   end
@@ -264,6 +269,7 @@ end
 if $0 == __FILE__
   Capcode.run( :db_config => "ceres.yml" ) do 
     if Moderator.all.count <= 0
+      puts "** Create user admin with password admin..."
       m = Moderator.new( :login => "admin", :realname => "Admin")
       m.password = "admin"
       m.save

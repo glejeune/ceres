@@ -11,11 +11,11 @@
   <entry>
     <title><%= post.title %></title>
     <link rel='alternate' type='text/html' href='<%= post.url %>' />
-    <id><%= post.post_id %></id>
+    <id><%= post.post_id %>--ceres</id>
     <updated><%= post.date %></updated>
 
     <author>
-      <name><%= post.author %></name>
+      <name><%= post.feed.title %></name>
     </author>
 
     <content type="html"><%= post.content %></content>
