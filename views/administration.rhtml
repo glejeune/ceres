@@ -1,4 +1,20 @@
 <div id="feedcontent">
+	<h2>Parser</h2>
+	
+	<p>Check for new feed every <input id="interval" type="text" size="3" name="interval" value="<%= @reader.interval %>"> seconds <input type="button" value="Change" onclick="Javascript:admin_change_interval();"> 
+	</p>
+	
+	<% unless @reader.interval %>
+		<p><b>WARNING ! Feed reader is not started !</b></p>
+	<% end %>
+	
+	<p>
+		<span id="checking"><img src="/static/images/loader.gif"/> I'm looking for new feeds...</span>
+		<span id="not_checking"><a href="#" onclick="javascript:admin_check_now();">Check Now!</a></span>
+	</p>	
+	
+	<script>admin_feed();</script>
+	
 	<h2>Contributors</h2>
 	
 	<p>Here, you can activate/deactivate a feed source. If you deactivate it, his posts will be still availables but no new post will be added and it will not be listed in the <a href="<%= URL(Capcode::Contributors) %>">contributors' list</a>. You can also delete one or more sources. If you delete a feed source, all it's posts will be deleted !</p>

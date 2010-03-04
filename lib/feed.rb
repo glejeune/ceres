@@ -41,13 +41,22 @@ module Ceres
     end
     
     class Reader
+      attr_accessor :interval
+      attr_reader :checking
+      attr_reader :status
       
       def initialize( interval = 60*60*6 )
         # Default : we extract new feeds every 6 hours
         @interval = interval
+        @checking = false
+        @status = false
       end
       
       def populate
+        return if @checking
+        puts "** START..."
+        @checking = true
+
         begin
           feeds = Feed.all( :active.not => "" )
           feeds.each do |feed|
@@ -55,21 +64,18 @@ module Ceres
             content = FeedNormalizer::FeedNormalizer.parse open(feed.feed)
             
             # Check all items
-            content.items.each do |item|            
+            content.entries.each do |item|            
               # Verify if the items already existe or not
               post = Post.all( :post_id => item.id )
               
               if post.nil? or post.size == 0
                 new_posts = true
 
-                require 'pp'
-                pp item
-                
                 Post.new( 
                   :title => item.title,
                   :content => ((item.content.nil? or item.content.size == 0)?(item.description):(item.content)),
-                  :date => item.last_updated || Time.now(),
-                  :url => item.urls[0],
+                  :date => item.date_published || Time.now(),
+                  :url => item.url,
                   :post_id => item.id,
                   :feed => feed
                 ).save
@@ -82,7 +88,9 @@ module Ceres
         rescue => e
           puts "** ERROR : #{e.message}"
         end
-          
+      ensure
+        @checking = false
+        puts "** END..."
       end
       
       def start
@@ -90,7 +98,8 @@ module Ceres
           EventMachine.run do
             EM.add_periodic_timer(@interval) do
               at_exit { EM.stop_event_loop }
-  
+              @status = true
+              
               populate
             end
           end
@@ -99,6 +108,7 @@ module Ceres
       
       def stop
         EM.stop_event_loop
+        @status = false
       end
       
     end
