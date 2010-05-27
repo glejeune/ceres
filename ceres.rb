@@ -137,9 +137,9 @@ module Capcode
     end
   end
   
-  class Style < Route '/style'
-    def get
-      render :static => "style.css", :exact_path => false
+  class Static < Route '/static/(.*)'
+    def get(f)
+      render :static => f, :exact_path => false
     end
   end
   
