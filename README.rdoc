@@ -14,7 +14,7 @@ A tiny Planet powered by Capcode (or a {dwarf planet}[http://en.wikipedia.org/wi
 
 == Install
 
-	git clone git://github.com/glejeune/ceres.git
+  git clone git://github.com/glejeune/ceres.git
   cd ceres
   ruby ceres.rb
   open http://localhost:3000
