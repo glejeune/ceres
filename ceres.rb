@@ -101,7 +101,7 @@ end
 
 module Capcode
   set :erb, "views"
-  set :static, "static"
+  set :static, "public"
   
   before_filter :check_login
   before_filter :user_logged, :only => [
