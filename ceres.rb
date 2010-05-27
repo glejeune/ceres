@@ -220,7 +220,7 @@ module Capcode
       @feeds = Feed.all
       @users = Moderator.all
       @colors = ["#EEEEEE", "#AAAAAA"]
-      @reader = ::READER
+      @reader = READER
       render :erb => :administration
     end
   end
@@ -275,13 +275,13 @@ module Capcode
 
   class AjaxFeedChecking < Route '/ajax/feed/checking'
     def get
-      render :json => ::READER.checking
+      render :json => READER.checking
     end
   end
 
   class AjaxFeedCheckNow < Route '/ajax/feed/check'
     def get
-      ::READER.populate
+      READER.populate
       render 200 => "Ok"
     end
   end
@@ -295,21 +295,21 @@ module Capcode
       param = Parameter.new( :name => "interval" ) if param.nil?
       param.int_value = interval
       if param.save
-        ::READER.interval = interval
+        READER.interval = interval
         
         begin
-          ::READER.stop
+          READER.stop
         rescue
           puts "** ERROR: stop"
         end
         
         begin
-          ::READER.start
+          READER.start
         rescue
           puts "** ERROR: start"
         end
       else
-        interval = ::READER.interval
+        interval = READER.interval
       end
       
       render :json => interval
@@ -318,12 +318,11 @@ module Capcode
 end
 
 if $0 == __FILE__
-  Capcode.run( :db_config => "ceres.yml" ) do 
-    
+  Capcode.run( :db_config => "ceres.yml" ) do |k|
     p = Parameter.first( :name => "interval" )
     interval = (p.nil?)?(60):(p.int_value)
-    ::READER = Ceres::Feeds::Reader.new(interval)
-    ::READER.start
+    READER = Ceres::Feeds::Reader.new(interval)
+    READER.start
     puts "** interval : #{interval} seconds"
     
     if Moderator.all.count <= 0
