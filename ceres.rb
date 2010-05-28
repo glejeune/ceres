@@ -101,7 +101,7 @@ end
 
 module Capcode
   set :erb, "views"
-  set :static, "public"
+  set :static, "static"
   
   before_filter :check_login
   before_filter :user_logged, :only => [
@@ -137,7 +137,7 @@ module Capcode
     end
   end
   
-  class Static < Route '/public/(.*)'
+  class Static < Route '/static/(.*)'
     def get(f)
       render :static => f, :exact_path => false
     end
