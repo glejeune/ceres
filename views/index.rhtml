@@ -8,12 +8,12 @@
 
 <div id="paginate">
 <% unless @previous_page.nil? %>
-<a href="<%= URL(Capcode::Index, @previous_page) %>">&laquo; Previous</a>
+<a href="<%= URL(Capcode::Page, @previous_page) %>">&laquo; Previous</a>
 <% end %>
 
 [<%= @page %>/<%= @number_of_pages %>]
 
 <% unless @next_page.nil? %>
-<a href="<%= URL(Capcode::Index, @next_page) %>">Next &raquo;</a>
+<a href="<%= URL(Capcode::Page, @next_page) %>">Next &raquo;</a>
 <% end %>
 </div>

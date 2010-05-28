@@ -130,8 +130,14 @@ module Capcode
     end
   end
   
-  class Index < Route '/', '/page/(.*)'
-    def get( page = 1 )
+  class Index < Route '/'
+    def get( )
+      redirect Page, 1
+    end
+  end
+  
+  class Page < Route '/page/(.*)'
+    def get( page )
       @posts, @page, @previous_page, @next_page, @number_of_pages = Post.paginate( :page => page.to_i )
       render :erb => :index
     end
