@@ -137,7 +137,7 @@ module Capcode
     end
   end
   
-  class Static < Route '/static/(.*)'
+  class Static < Route '/public/(.*)'
     def get(f)
       render :static => f, :exact_path => false
     end
